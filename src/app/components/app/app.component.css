@@ -1,0 +1,15 @@
+.todo-app{
+  border-radius: 3px;
+  box-shadow: 0 1px 3px 0 rgba(168,0,168,0.1);
+  background-color: #fff;
+  margin: 15px auto;
+  padding: 0;
+  position: relative
+}
+.logo-container {
+  text-align: center
+}
+.logo-container img {
+  width: 200px;
+  padding-top: 10px
+}

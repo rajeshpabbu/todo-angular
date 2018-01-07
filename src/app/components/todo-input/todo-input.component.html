@@ -1,0 +1,14 @@
+<div class="input-container">
+    <div class="row">
+        <div class="col-sm-9">
+            <input type="text" 
+            class="new-todo" 
+            name="add-todo" #todo 
+            (keyup.enter)="addTodo(todo.value); todo.value=''" 
+            placeholder="Type and press enter key to add a quick todo"/>
+        </div>
+        <div class="col-sm-3">
+            <div class="btn btn-success" (click)="openTodoModal('add')">Advanced</div>        
+        </div>
+    </div>
+</div>
