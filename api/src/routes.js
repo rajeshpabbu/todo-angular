@@ -1,18 +1,19 @@
 const mockData = require('../src/mockdata.json');
 const mongojs = require('mongojs');
-const db = mongojs('TodoDataBase', ['TodoCollection']);
+const db = mongojs('TodoDataBase');
+const todoC = db.TodoList;
 
 const todos = {};
 
 todos.getAllTodos = (req, res, next) => {
-  db.TodoCollection.find(function (err, docs) {
+  todoC.find(function (err, docs) {
     res.json(200, docs);
     next();
   });
 };
 
 todos.addTodo = (req, res, next) => {
-  db.TodoCollection.insert(req.body, function (err, doc) {
+  todoC.insert(req.body, function (err, doc) {
     console.log(doc);
     res.json(200, doc);
     next();
@@ -25,7 +26,7 @@ todos.updateTodo = (req, res, next) => {
     return next();
   }
   console.log(req.body);
-  db.TodoCollection.findAndModify({
+  todoC.findAndModify({
     'query': { '_id': mongojs.ObjectId(req.params.id) },
     'update': { '$set': req.body }
   }, function (err, doc) {
@@ -45,7 +46,7 @@ todos.removeTodo = (req, res, next) => {
     return next();
   }
 
-  db.TodoCollection.remove({ '_id': mongojs.ObjectId(req.params.id) }, true, function (err, doc) {
+  todoC.remove({ '_id': mongojs.ObjectId(req.params.id) }, true, function (err, doc) {
     if (err) {
       res.send(503, err);
     } else {

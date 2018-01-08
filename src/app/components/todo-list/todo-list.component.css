@@ -1,34 +1,59 @@
+.todo-list-container{
+    padding: 0 15px;    
+    margin-top: 1px;
+}
+.empty-list-message {
+    margin: 150px auto;
+    width: 80%;
+    text-align: center
+}
+.btn-group {
+    display: block;
+    text-align: center;
+    margin: 10px auto
+}
+.btn-group button {
+    cursor: pointer
+}   
 .list-group {
     height: 500px;
     overflow: auto;
-    margin: 20px 0;
-    padding: 0 15px
 }
-.list-group-item {
+.list-group-item, .tab-container {
     margin-bottom: 5px;
     border-radius: 3px;
     box-shadow: 0 1px 3px 0 rgba(168, 0, 168, 0.15);
     background-color: #fff;
 }
+.tab-container {
+    margin-bottom: 10px
+}
 .list-group-item .todo-name{
     width: 500px;
     display: inline-block;
-    padding-left: 20px
+    padding-left: 15px
 }
-
 input[type="checkbox"] {
     -webkit-appearance: none;
     -moz-appearance:    none;
     appearance:         none;
+    cursor: pointer;
 }
 
-input.oi-check:before {
-    border: 1px solid #ccc;
-    padding: 5px;
-    border-radius: 50%;
-    color: #ccc
+input.oi-task:before {
+    color: #ccc;
+    font-size: 1.3em;
 }
-.completed input.oi-check:before {
+.completed input.oi-task:before {
     border-color: #008000;
     color: #008000
+}
+span.remove {
+    float: right;
+    opacity: 0.6;
+    font-size: 1.2em;
+    cursor: pointer
+}
+span.remove:focus, span.remove:hover {
+    opacity: 1
 }

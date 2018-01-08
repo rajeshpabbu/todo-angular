@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class ToDoService {
   host: string = "";
-  public globalLoader = true;
+  globalLoader= {isLoading: true};
 
   constructor(private _http: HttpClient) {
   }
@@ -15,56 +15,37 @@ export class ToDoService {
   private todos = new BehaviorSubject<any>([]);
   castTodos = this.todos.asObservable();
 
-  getAll(): Observable<Todo[]> {
-    console.log('getall')
+  getAll() {
     let _url = this.host + "/todos";
-
     return this._http.get(_url)
-      .map((result: any) => {
-        console.log(this.globalLoader)
-        this.globalLoader = false;
-        console.log(this.globalLoader)       
-        return result;
-      })
-      .catch(this.handleError);
   }
 
-  add(newTodo): Observable<Todo[]> {
+  add(newTodo) {
     let _url = this.host + "/addTodo";
 
-    return this._http.post(_url, newTodo)
-      .map((result: Response) => {
-        this.updateTodoList();
-        return result;
-      })
-      .catch(this.handleError);
+    return this._http.post(_url, newTodo);
   }
 
-  update(todo): Observable<Todo> {
+  update(todo) {
     let todoCopy = Object.assign({}, todo);
     let _url = this.host + "/updateTodo/" + todo._id;
     delete todoCopy._id;
     
     return this._http.put(_url, todoCopy)
-      .map((result: Response) => {
-        return result;
-      })
-      .catch(this.handleError);
   }
 
-  remove(todoId): Observable<Todo> {
+  remove(todoId) {
     let _url = this.host + "/removeTodo/" + todoId;
     
-    return this._http.delete(_url)
-      .map((result: Response) => {
-        return result;
-      })
-      .catch(this.handleError);
+    return this._http.delete(_url);
   }
 
-  private updateTodoList() {
+  updateTodoList() {
+    this.globalLoader.isLoading = true;    
     this.getAll().subscribe((result) => {
+      console.log(result)
       this.todos.next(result);
+      this.globalLoader.isLoading = false;          
     }); 
   }
 

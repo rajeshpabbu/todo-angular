@@ -1,11 +1,27 @@
-<ul class="list-group">
-  <li *ngFor="let todo of todos" class="list-group-item" [ngClass]="{'completed': todo.isCompleted}">
-    <input type="checkbox" [(ngModel)]="todo.isCompleted" (change)="updateTodo(todo)" class="toggle oi oi-check" />
-    <span class="todo-name">{{todo.name}}</span>
-    <button (click)="removeTodo(todo)" class="destroy"></button>
-  </li>
-</ul>
-<footer class="footer">
-  <span class="todo-count">
-    <strong>{{todos | todofilter:false}}</strong> items left</span>
-</footer>
+<div class="todo-list-container">
+  <div class="empty-list-message" *ngIf="todos && !todos.length">
+    <p class="message">There are no todos found. Please click here to add a new todo</p>
+  </div>
+  <div *ngIf="todos && todos.length">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" 
+        *ngFor="let tab of filterTabs"
+        [ngClass]="{'btn-success': filterBy === tab.filterBy}"
+        (click)="filterTodos(tab.filterBy)"      
+        class="btn">{{tab.filterBy}}</button>
+    </div>
+    <ul class="list-group">
+      <li *ngFor="let todo of filteredTodos" class="list-group-item" [ngClass]="{'completed': todo.isCompleted}">
+        <input type="checkbox" [(ngModel)]="todo.isCompleted" (change)="updateTodo(todo)" class="toggle oi oi-task" />
+        <span class="todo-name">{{todo.name}}</span>
+        <span class="badge" 
+        [ngClass]="{'btn-success': todo.isCompleted, 'btn-warning': !todo.isCompleted}">
+        {{todo.isCompleted ? 'Completed' : 'Pending'}}
+        </span>
+        <span (click)="removeTodo(todo)" class="oi oi-trash remove" aria-label="Remove"></span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+

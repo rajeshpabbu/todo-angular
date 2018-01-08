@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToDoService } from '../../services/to-do.service';
 import { AlertService } from '../../services/alert.service';
-
-declare var $:any
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Todo } from '../../components/todo-list/todo';
 
 @Component({
   selector: 'app-todo-input',
@@ -10,25 +10,43 @@ declare var $:any
   styleUrls: ['./todo-input.component.css']
 })
 export class TodoInputComponent implements OnInit {
-
+  
+  private tododata:Todo = {
+    _id : "",
+    name: "",
+    isCompleted: false
+  };
+  
   constructor(
     private todoService: ToDoService,
-    private als: AlertService
+    private als: AlertService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
+    console.log(this.tododata)
     
   }
 
+  addQuickTodo(todo: string) {
+
+  }
+
   addTodo (todo: string) {
+    this.todoService.globalLoader.isLoading = true;    
     const newtodo = {name: todo, isCompleted: false};
     this.todoService.add(newtodo).subscribe((result) => {
-      this.als.updateAlertQueue({message:"<strong>" +todo+ "</strong> added successfully", type:"success"})
+      this.als.updateAlertQueue({message:"<strong>" +todo+ "</strong> added successfully", type:"success"});
+      this.todoService.updateTodoList();
+      this.todoService.globalLoader.isLoading = false;
     });
   }
 
-  openTodoModal (type: string) {
-    $('#add-edit-todo').modal('show');
-  }
+  openTodoModal(content) {
+    this.modalService.open(content).result.then((result) => {
 
+    }, (reason) => {
+
+    });
+  }
 }

@@ -14,7 +14,9 @@ export class AlertService {
 
   updateAlertQueue(newalert) {
     this.alerts.unshift(newalert);
-    this.alerts.length = this.maxCount;
+    if(this.alerts.length > this.maxCount) {
+      this.alerts.length = this.maxCount;      
+    }
   }
 
 }

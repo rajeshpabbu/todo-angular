@@ -7,12 +7,12 @@ import { ToDoService } from '../../services/to-do.service';
   styleUrls: ['./todo-loader.component.css']
 })
 export class TodoLoaderComponent implements OnInit {
-  isLoading:boolean = this.tds.globalLoader;
+  globalLoader:object;
 
   constructor(private tds: ToDoService) { }
 
   ngOnInit() {
-    this.isLoading = this.tds.globalLoader;
+    this.globalLoader = this.tds.globalLoader;
   }
 
 }

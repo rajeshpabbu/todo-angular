@@ -17,5 +17,6 @@
 button.close {
     position: absolute;
     top: 9px;
-    right: 10px
+    right: 10px;
+    cursor: pointer
 }

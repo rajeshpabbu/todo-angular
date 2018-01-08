@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule }   from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 import { AppComponent } from './components/app/app.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
@@ -27,7 +29,8 @@ import { AddEditTodoComponent } from './components/add-edit-todo/add-edit-todo.c
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule.forRoot()
   ],
   providers: [MyFilterPipe, ToDoService, AlertService],
   bootstrap: [AppComponent]
