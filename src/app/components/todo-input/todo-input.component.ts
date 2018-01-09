@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToDoService } from '../../services/to-do.service';
 import { AlertService } from '../../services/alert.service';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { Todo } from '../../components/todo-list/todo';
 
 @Component({
@@ -11,11 +11,13 @@ import { Todo } from '../../components/todo-list/todo';
 })
 export class TodoInputComponent implements OnInit {
   
-  private tododata:Todo = {
-    _id : "",
+  private tododata = {
     name: "",
-    isCompleted: false
+    priority: "Low",
+    status: "Pending"
   };
+
+  private openedModal:any;
   
   constructor(
     private todoService: ToDoService,
@@ -28,25 +30,18 @@ export class TodoInputComponent implements OnInit {
     
   }
 
-  addQuickTodo(todo: string) {
-
-  }
-
-  addTodo (todo: string) {
+ addTodo () {
     this.todoService.globalLoader.isLoading = true;    
-    const newtodo = {name: todo, isCompleted: false};
+    const newtodo = this.tododata;
     this.todoService.add(newtodo).subscribe((result) => {
-      this.als.updateAlertQueue({message:"<strong>" +todo+ "</strong> added successfully", type:"success"});
       this.todoService.updateTodoList();
       this.todoService.globalLoader.isLoading = false;
+      this.openedModal.close();
+      this.als.updateAlertQueue({message:"<strong>" +newtodo.name+ "</strong> added successfully", type:"success"});      
     });
   }
 
   openTodoModal(content) {
-    this.modalService.open(content).result.then((result) => {
-
-    }, (reason) => {
-
-    });
+    this.openedModal = this.modalService.open(content);
   }
 }

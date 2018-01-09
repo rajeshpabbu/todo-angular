@@ -30,11 +30,8 @@ export class TodoListComponent implements OnInit {
       break;
 
       case "Completed":
-      this.filteredTodos = this.todos.filter(item => item.isCompleted === true);
-      break;
-
       case "Pending":
-      this.filteredTodos = this.todos.filter(item => item.isCompleted === false);
+      this.filteredTodos = this.todos.filter(item => item.status === filter);
       break;
     }
   }
@@ -53,6 +50,11 @@ export class TodoListComponent implements OnInit {
       this.filterTodos(this.filterBy);
       this.todoService.globalLoader.isLoading = false;          
     }); 
+  }
+
+  updateStatus(todo: Todo) {
+    todo.status = todo.status === 'Completed' ? 'Pending' : 'Completed';
+    this.updateTodo(todo);
   }
 
   updateTodo (todo: Todo) {

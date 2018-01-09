@@ -4,7 +4,8 @@
             <input type="text" 
             class="new-todo" 
             name="add-todo" #todo 
-            (keyup.enter)="addTodo(todo.value); todo.value=''" 
+            (keyup.enter)="addTodo(todo.value); todo.value=''"
+            [(ngModel)]="tododata.name"
             placeholder="Type and press enter key to add a quick todo"/>
         </div>
         <div class="col-sm-3">
@@ -21,32 +22,37 @@
     </div>
     <div class="modal-body">
         <form>
+            <pre>{{tododata | json}}</pre>
             <div class="form-group">
                 <label for="todoLabel">Todo</label>
-                <input type="text" class="form-control" id="todoLabel" aria-describedby="todoLabel" placeholder="Enter todo">
+                <input type="text" [(ngModel)]="tododata.name" 
+                class="form-control" 
+                id="todoLabel"
+                name="todoLabel"
+                aria-describedby="todoLabel" 
+                placeholder="Enter todo">
             </div>
             <div class="form-group">
                 <label for="todoStatus">Status</label>                    
-                <select class="form-control" id="priority">
+                <select [(ngModel)]="tododata.status" name="status" class="form-control" id="todoStatus">
                     <option>Pending</option>
                     <option>Completed</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="priority">Priority</label>
-                <select class="form-control" id="priority">
+                <select class="form-control" name="priority" [(ngModel)]="tododata.priority" id="priority">
                     <option>Low</option>
                     <option>High</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control" id="description" rows="3"></textarea>
+                <textarea [(ngModel)]="tododata.description" name="description" class="form-control" id="description" rows="3"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addTodo()">Add Todo</button>
     </div>
 </ng-template>
