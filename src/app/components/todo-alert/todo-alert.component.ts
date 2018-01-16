@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from '../../services/alert.service';
+import { AlertService } from '../../services/index';
 
 @Component({
   selector: 'app-todo-alert',
   templateUrl: './todo-alert.component.html',
-  styleUrls: ['./todo-alert.component.css']
+  styleUrls: ['./todo-alert.component.css'],
+  providers: []
 })
 export class TodoAlertComponent implements OnInit {
 

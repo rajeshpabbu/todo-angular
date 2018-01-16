@@ -3,9 +3,10 @@
     margin-top: 1px;
 }
 .empty-list-message {
-    margin: 150px auto;
+    margin: 0 auto;
     width: 80%;
-    text-align: center
+    text-align: center;
+    padding: 150px 0;
 }
 .btn-group {
     display: block;

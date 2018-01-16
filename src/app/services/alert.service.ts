@@ -12,6 +12,10 @@ export class AlertService {
     return this.alerts;
   }
 
+  clearQueue() {
+    this.alerts.length = 0;
+  }
+
   updateAlertQueue(newalert) {
     this.alerts.unshift(newalert);
     if(this.alerts.length > this.maxCount) {

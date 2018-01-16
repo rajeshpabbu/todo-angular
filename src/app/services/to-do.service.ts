@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Todo } from '../components/todo-list/todo';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { GlobalLoaderService } from './global-loader.service';
+
 
 @Injectable()
 export class ToDoService {
-  host: string = "";
-  globalLoader= {isLoading: true};
+  host: string = "/api";
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private gls: GlobalLoaderService) {
   }
 
   private todos = new BehaviorSubject<any>([]);
@@ -41,11 +42,11 @@ export class ToDoService {
   }
 
   updateTodoList() {
-    this.globalLoader.isLoading = true;    
+    this.gls.globalLoader.isLoading = true;    
     this.getAll().subscribe((result) => {
       console.log(result)
       this.todos.next(result);
-      this.globalLoader.isLoading = false;          
+      this.gls.globalLoader.isLoading = false;          
     }); 
   }
 

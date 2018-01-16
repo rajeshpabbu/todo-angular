@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Todo } from './todo';
-import { ToDoService } from '../../services/to-do.service';
-import { AlertService } from '../../services/alert.service';
+import { ToDoService, GlobalLoaderService, AlertService } from '../../services/index';
 
 @Component({
   selector: 'app-todo-list',
@@ -19,7 +18,11 @@ export class TodoListComponent implements OnInit {
     {filterBy: "Pending"}
   ];
 
-  constructor(private todoService: ToDoService, private als: AlertService) {
+  constructor(
+    private todoService: ToDoService, 
+    private gls: GlobalLoaderService,
+    private als: AlertService
+  ) {
   };
 
   filterTodos(filter: string) {
@@ -36,7 +39,7 @@ export class TodoListComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngOnInit() {    
     this.loadTodos();
     this.todoService.castTodos.subscribe((todos) => {
       this.todos = todos;
@@ -45,11 +48,12 @@ export class TodoListComponent implements OnInit {
   }
 
   loadTodos () {
+    this.gls.globalLoader.isLoading = false;
     this.todoService.getAll().subscribe((result:any) => {
       this.todos = result;
       this.filterTodos(this.filterBy);
-      this.todoService.globalLoader.isLoading = false;          
-    }); 
+      this.gls.globalLoader.isLoading = false;          
+    }, error => this.errorCallback(error));
   }
 
   updateStatus(todo: Todo) {
@@ -58,18 +62,24 @@ export class TodoListComponent implements OnInit {
   }
 
   updateTodo (todo: Todo) {
-    this.todoService.globalLoader.isLoading = true;
+    this.gls.globalLoader.isLoading = true;
     this.todoService.update(todo).subscribe((result) => {
       this.als.updateAlertQueue({message:"<strong>" +todo.name+ "</strong> updated successfully", type:"success"});
       this.loadTodos();
-    });
+    }, error => this.errorCallback(error));
   }
 
   removeTodo(todo: Todo) {
-    this.todoService.globalLoader.isLoading = true;    
+    this.gls.globalLoader.isLoading = true;    
     this.todoService.remove(todo._id).subscribe((result) => {
       this.als.updateAlertQueue({message:"<strong>" +todo.name+ "</strong> removed successfully", type:"success"})            
       this.loadTodos();      
-    });
+    }, error => this.errorCallback(error));
+  }
+
+  errorCallback(error) {
+    this.gls.globalLoader.isLoading = false;          
+    console.log(error);
+    this.als.updateAlertQueue({message:"<strong>" + error.error + "</strong>", type:"danger"});
   }
 }

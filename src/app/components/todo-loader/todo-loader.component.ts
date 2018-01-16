@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToDoService } from '../../services/to-do.service';
+import { GlobalLoaderService } from '../../services/global-loader.service';
 
 @Component({
   selector: 'app-todo-loader',
@@ -9,10 +9,10 @@ import { ToDoService } from '../../services/to-do.service';
 export class TodoLoaderComponent implements OnInit {
   globalLoader:object;
 
-  constructor(private tds: ToDoService) { }
+  constructor(private gls: GlobalLoaderService) { }
 
   ngOnInit() {
-    this.globalLoader = this.tds.globalLoader;
+    this.globalLoader = this.gls.globalLoader;
   }
 
 }

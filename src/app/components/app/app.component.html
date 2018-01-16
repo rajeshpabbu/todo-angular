@@ -1,15 +1,9 @@
 <div class="todo-app container">
-  <header>
-    <div class="logo-container">
-        <img src="/assets/images/logo.png" alt="logo" />
-    </div>
-  </header>
+  <app-nav-bar></app-nav-bar>
   <app-todo-alert></app-todo-alert>
-  <app-add-edit-todo></app-add-edit-todo>
   <app-todo-loader><img src="/assets/images/loader.gif" alt="loader" /></app-todo-loader>
   <div class="main">
-      <app-todo-input></app-todo-input>          
-      <app-todo-list></app-todo-list>
+      <router-outlet></router-outlet> 
   </div>
 </div>
   
