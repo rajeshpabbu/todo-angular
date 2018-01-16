@@ -17,7 +17,7 @@
     cursor: pointer
 }   
 .list-group {
-    height: 500px;
+    height: 476px;
     overflow: auto;
 }
 .list-group-item, .tab-container {

@@ -32,6 +32,25 @@ header .popover {
 .login-container .card-block, .register-container .card-block {
     padding: 20px
 }
+.btn-secondary {
+    color: #292b2c;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.btn-secondary:hover {
+    color: #292b2c;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
+.has-error .help-block {
+    color: #ff0000;
+    padding: 6px 0;
+    font-size: 13px;
+}
+.has-error input {
+    border-color: #ff0000 
+}
 
 @media (min-width: 1200px) {
     .container {

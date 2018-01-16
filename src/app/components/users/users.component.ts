@@ -22,10 +22,7 @@ export class UsersComponent implements OnInit {
 
   loadUsers () {
     this.us.getAll().subscribe((result:any) => {
-      console.log(result);
-      
       this.users = result;
-
       this.gls.globalLoader.isLoading = false;          
     }, error => this.errorCallback(error));
   }
@@ -49,7 +46,7 @@ export class UsersComponent implements OnInit {
   errorCallback(error) {
     this.gls.globalLoader.isLoading = false;          
     console.log(error);
-    //this.als.updateAlertQueue({message:"<strong>" + error.error + "</strong>", type:"danger"});
+    this.als.updateAlertQueue({message:"<strong>" + error.error + "</strong>", type:"danger"});
   }
 
 }

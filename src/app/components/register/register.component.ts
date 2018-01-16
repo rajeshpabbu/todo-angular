@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AlertService, UserService, GlobalLoaderService } from '../services/index';
+import { AlertService, UserService, GlobalLoaderService } from '../../services/index';
 
 @Component({
     moduleId: module.id.toString(),

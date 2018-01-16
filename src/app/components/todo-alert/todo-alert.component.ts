@@ -15,7 +15,6 @@ export class TodoAlertComponent implements OnInit {
 
   ngOnInit() {
     this.allAlerts = this.als.getAlertsQueue();
-    console.log(this.allAlerts)
   }
 
 

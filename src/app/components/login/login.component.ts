@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AuthenticationService } from '../_services/index';
-import { AlertService, GlobalLoaderService } from '../services/index';
+import { AlertService, GlobalLoaderService, AuthenticationService } from '../../services/index';
+import { User } from 'app/_models';
 
 @Component({
     templateUrl: 'login.component.html',
@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         // reset login status
+        console.log('init called');
         this.authenticationService.logout();
 
         // get return url from route parameters or default to '/'

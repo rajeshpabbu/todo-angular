@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { UserService, AuthenticationService } from '../../services/index';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,14 +7,23 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  currentUser = {};
+  currentUser;
 
-  constructor(private us: UserService) { }
+  constructor(
+    private us: UserService,
+    private authenticationService: AuthenticationService
+  ) { }
 
   ngOnInit() {
+    const lsUser = localStorage.getItem('currentUser');
+    if (lsUser) {
+      this.us.updateCurrentUer(JSON.parse(lsUser));
+    }
     this.currentUser = this.us.getCurrentUser();
-    console.log(this.currentUser)
+  }
 
+  logout() {
+    this.authenticationService.logout();
   }
 
 }

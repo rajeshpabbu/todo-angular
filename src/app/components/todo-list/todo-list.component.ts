@@ -48,7 +48,7 @@ export class TodoListComponent implements OnInit {
   }
 
   loadTodos () {
-    this.gls.globalLoader.isLoading = false;
+    this.gls.globalLoader.isLoading = true;
     this.todoService.getAll().subscribe((result:any) => {
       this.todos = result;
       this.filterTodos(this.filterBy);

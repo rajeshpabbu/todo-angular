@@ -7,20 +7,25 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class UserService {
-    host: string = "/api";
-    currentUser = {
-      
-    }
-    constructor(private _http: HttpClient) { }
-  
+  host: string = "/api";
+  currentUser = {
+    userDetails : {}
+  }
+  constructor(private _http: HttpClient) { }
+
   getAll() {
     let _url = this.host + "/users";
     return this._http.get(_url)
   }
 
   getCurrentUser() {
-    console.log(localStorage.getItem('currentUser'))
-    return localStorage.getItem('currentUser');
+    console.log(this.currentUser)
+    return this.currentUser;
+  }
+
+  updateCurrentUer(user) {
+    this.currentUser.userDetails = user;
+    console.log(this.currentUser)
   }
 
   add(newUser) {
@@ -41,15 +46,6 @@ export class UserService {
     let _url = this.host + "/removeUser/" + userId;
     
     return this._http.delete(_url);
-  }
-
-  updateUserList() {
-    //this.gls.globalLoader.isLoading = true;    
-    this.getAll().subscribe((result) => {
-      console.log(result)
-      //this.todos.next(result);
-      //this.gls.globalLoader.isLoading = false;          
-    }); 
   }
 
   private handleError(error: Response | any) {
