@@ -2,7 +2,7 @@
   <div class="logo-container float-md-left">
       <a routerLink="/"><img src="/assets/images/logo.png" alt="logo" /></a>
   </div>
-  <nav class="navbar float-sm-right" *ngIf="!!currentUser.userDetails.username">
+  <nav class="navbar float-sm-right" *ngIf="!!currentUser.userDetails.id">
     <ul class="nav nav-pills">
       <li class="nav-item">
         <a class="nav-link" routerLink="/users">Users</a>
@@ -17,8 +17,7 @@
           <a class="profile-pic"><span></span></a>
         </div>
         <div class="col-sm-9">
-          <p><strong>Rajesh Pabbu</strong></p>
-          <p>RajeshPabbu548@gmail.com</p>
+          <p><strong>{{currentUser.userDetails.firstName}} {{currentUser.userDetails.lastName}}</strong></p>
         </div>
       </div>
       <div class="profile-bottom">

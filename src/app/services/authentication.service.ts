@@ -17,10 +17,15 @@ export class AuthenticationService {
     login(username: string, password: string) {
         return this.http.post<any>('/api/authenticate', { username: username, password: password })
             .map(user => {
-                console.log(user)
                 if (user) {
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    this.us.updateCurrentUer(user);
+                    const currentUser = {
+                        id: user._id,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        role: user.role
+                    }
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    this.us.updateCurrentUer(currentUser);
                 }
 
                 return user;

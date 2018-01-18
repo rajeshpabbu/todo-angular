@@ -12,7 +12,6 @@ export class RegisterComponent implements OnInit {
     model: any = {
         role: "user"
     };
-    loading = false;
 
     constructor(
         private router: Router,
@@ -26,11 +25,14 @@ export class RegisterComponent implements OnInit {
         this.userService.add(this.model)
             .subscribe(
                 data => {
-                    this.als.updateAlertQueue({message:"<strong>Your registration is successful. Please login to the application to manage your todos.</strong>", type: "success"});
+                    this.als.updateAlertQueue({
+                        message:"<strong>Your registration is successful. Please login to the application to manage your todos.</strong>",
+                        type: "success"
+                    });
                     this.router.navigate(['/login']);
                 },
                 error => {
-                    this.loading = false;
+                    this.gls.globalLoader.isLoading = false;
                 });
     }
 

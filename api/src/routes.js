@@ -12,6 +12,13 @@ todos.getAllTodos = (req, res, next) => {
   });
 };
 
+todos.getTodosByUser = (req, res, next) => {
+  todoC.find({createdById: req.params.userId}, function (err, docs) {
+    res.json(200, docs);
+    next();
+  });
+};
+
 todos.addTodo = (req, res, next) => {
   todoC.insert(req.body, function (err, doc) {
     console.log(doc);

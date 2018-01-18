@@ -4,20 +4,28 @@ import { Todo } from '../components/todo-list/todo';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { GlobalLoaderService } from './global-loader.service';
+import { UserService } from '../services/user.service';
 
 
 @Injectable()
 export class ToDoService {
   host: string = "/api";
+  currentUser;
 
-  constructor(private _http: HttpClient, private gls: GlobalLoaderService) {
+  constructor(
+    private _http: HttpClient, 
+    private gls: GlobalLoaderService,
+    private us: UserService
+  ) {
   }
 
   private todos = new BehaviorSubject<any>([]);
   castTodos = this.todos.asObservable();
 
   getAll() {
-    let _url = this.host + "/todos";
+    let _url = this.host + "/todos/" + this.us.currentUser.userDetails.id;
+
+    if(this.us.currentUser.userDetails.role === "admin") _url = this.host + "/allTodos";
     return this._http.get(_url)
   }
 

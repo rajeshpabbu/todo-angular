@@ -12,7 +12,8 @@ server.use(restify.plugins.fullResponse());
 
 // routes
 
-server.get('/api/todos', routes.getAllTodos);
+server.get('/api/allTodos', routes.getAllTodos);
+server.get('/api/todos/:userId', routes.getTodosByUser);
 server.post('/api/addTodo', routes.addTodo);
 server.put('/api/updateTodo/:id', routes.updateTodo);
 server.del('/api/removeTodo/:id', routes.removeTodo);

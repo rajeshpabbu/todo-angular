@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ToDoService, GlobalLoaderService, AlertService } from '../../services/index';
+import { ToDoService, GlobalLoaderService, AlertService, UserService } from '../../services/index';
 import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { Todo } from '../../components/todo-list/todo';
+import { User } from 'app/components/users/user';
 
 @Component({
   selector: 'app-todo-input',
@@ -10,10 +11,11 @@ import { Todo } from '../../components/todo-list/todo';
 })
 export class TodoInputComponent implements OnInit {
   
-  private tododata = {
+  private tododata:Todo = {
     name: "",
     priority: "Low",
-    status: "Pending"
+    status: "Pending",
+    createdById: ""
   };
 
   private openedModal:any;
@@ -22,7 +24,8 @@ export class TodoInputComponent implements OnInit {
     private todoService: ToDoService,
     private gls: GlobalLoaderService,
     private als: AlertService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private us: UserService
   ) { }
 
   ngOnInit() {
@@ -32,6 +35,7 @@ export class TodoInputComponent implements OnInit {
  addTodo (modal) {
     this.gls.globalLoader.isLoading = true;    
     const newtodo = this.tododata;
+    newtodo.createdById = this.us.currentUser.userDetails.id;
     this.todoService.add(newtodo).subscribe((result) => {
       this.todoService.updateTodoList();
       this.gls.globalLoader.isLoading = false;

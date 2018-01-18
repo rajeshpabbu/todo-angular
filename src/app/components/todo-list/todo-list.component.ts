@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Todo } from './todo';
-import { ToDoService, GlobalLoaderService, AlertService } from '../../services/index';
+import { ToDoService, GlobalLoaderService, AlertService, UserService } from '../../services/index';
 
 @Component({
   selector: 'app-todo-list',
@@ -10,6 +10,7 @@ import { ToDoService, GlobalLoaderService, AlertService } from '../../services/i
 export class TodoListComponent implements OnInit {
   todos = [];
   filteredTodos = [];
+  currentUser;
   private filterBy = "All";
 
   private filterTabs = [
@@ -21,7 +22,8 @@ export class TodoListComponent implements OnInit {
   constructor(
     private todoService: ToDoService, 
     private gls: GlobalLoaderService,
-    private als: AlertService
+    private als: AlertService,
+    private us: UserService
   ) {
   };
 
@@ -39,16 +41,18 @@ export class TodoListComponent implements OnInit {
     }
   }
 
-  ngOnInit() {    
+  ngOnInit() {
+    this.currentUser = this.us.currentUser.userDetails;
     this.loadTodos();
     this.todoService.castTodos.subscribe((todos) => {
       this.todos = todos;
       this.filterTodos(this.filterBy);
-    }); 
+    });
   }
 
   loadTodos () {
     this.gls.globalLoader.isLoading = true;
+    
     this.todoService.getAll().subscribe((result:any) => {
       this.todos = result;
       this.filterTodos(this.filterBy);
