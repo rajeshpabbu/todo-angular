@@ -3,15 +3,15 @@ import { Router } from '@angular/router';
 
 import { AlertService, UserService, GlobalLoaderService } from '../../services/index';
 
+import { User } from '../../models/user';
+
 @Component({
-    moduleId: module.id.toString(),
     templateUrl: 'register.component.html'
 })
 
 export class RegisterComponent implements OnInit {
-    model: any = {
-        role: "user"
-    };
+
+    model = new User('', '', '', '', '', '');
 
     constructor(
         private router: Router,
