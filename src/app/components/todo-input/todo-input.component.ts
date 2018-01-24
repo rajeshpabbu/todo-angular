@@ -18,6 +18,8 @@ export class TodoInputComponent implements OnInit {
     createdById: ""
   };
 
+  private currentUser;
+  
   private openedModal:any;
   
   constructor(
@@ -29,13 +31,13 @@ export class TodoInputComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.currentUser = this.us.getCurrentUser();
   }
 
  addTodo (modal) {
     this.gls.globalLoader.isLoading = true;    
     const newtodo = this.tododata;
-    newtodo.createdById = this.us.currentUser.userDetails.id;
+    newtodo.createdById = this.currentUser._id;
     this.todoService.add(newtodo).subscribe((result) => {
       this.todoService.updateTodoList();
       this.gls.globalLoader.isLoading = false;

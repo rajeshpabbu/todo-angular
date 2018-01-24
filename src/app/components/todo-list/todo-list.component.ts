@@ -42,7 +42,7 @@ export class TodoListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUser = this.us.currentUser.userDetails;
+    this.currentUser = this.us.getCurrentUser();
     this.loadTodos();
     this.todoService.castTodos.subscribe((todos) => {
       this.todos = todos;

@@ -11,7 +11,7 @@ import { User } from '../../models/user';
 
 export class RegisterComponent implements OnInit {
 
-    model = new User('', '', '', '', '', '');
+    model = new User('', '', '', '', '');
 
     constructor(
         private router: Router,

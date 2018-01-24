@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, AuthenticationService } from '../../services/index';
+import { User } from '../../models/user'
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,7 +8,7 @@ import { UserService, AuthenticationService } from '../../services/index';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  currentUser;
+  currentUser:User;
 
   constructor(
     private us: UserService,
@@ -19,7 +20,9 @@ export class NavBarComponent implements OnInit {
     if (lsUser) {
       this.us.updateCurrentUer(JSON.parse(lsUser));
     }
-    this.currentUser = this.us.getCurrentUser();
+    this.us.castUser.subscribe((user) => {
+      this.currentUser = user;
+    });
   }
 
   logout() {

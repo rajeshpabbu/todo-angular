@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../components/users/user'
+import { User } from '../models/user'
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -8,9 +8,11 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class UserService {
   host: string = "/api";
-  currentUser = {
-    userDetails : {}
-  }
+  //currentUser:User;
+
+  private currentUser = new BehaviorSubject<User>(new User("", "", "", ""));
+  castUser = this.currentUser.asObservable();
+
   constructor(private _http: HttpClient) { }
 
   getAll() {
@@ -19,13 +21,11 @@ export class UserService {
   }
 
   getCurrentUser() {
-    console.log(this.currentUser)
-    return this.currentUser;
+    return this.currentUser.value;
   }
 
   updateCurrentUer(user) {
-    this.currentUser.userDetails = user;
-    console.log(this.currentUser)
+    this.currentUser.next(user);
   }
 
   add(newUser) {

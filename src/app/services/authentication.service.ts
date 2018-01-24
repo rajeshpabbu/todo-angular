@@ -19,7 +19,7 @@ export class AuthenticationService {
             .map(user => {
                 if (user) {
                     const currentUser = {
-                        id: user._id,
+                        _id: user._id,
                         firstName: user.firstName,
                         lastName: user.lastName,
                         role: user.role

@@ -23,10 +23,11 @@ export class ToDoService {
   castTodos = this.todos.asObservable();
 
   getAll() {
-    let _url = this.host + "/todos/" + this.us.currentUser.userDetails.id;
+    this.currentUser = this.us.getCurrentUser();
+    let _url = this.host + "/todos/" + this.currentUser._id;
+    if(this.currentUser.role === "admin") _url = this.host + "/allTodos";
 
-    if(this.us.currentUser.userDetails.role === "admin") _url = this.host + "/allTodos";
-    return this._http.get(_url)
+    return this._http.get(_url);
   }
 
   add(newTodo) {
