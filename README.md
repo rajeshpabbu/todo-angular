@@ -9,16 +9,20 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 3. go to api folder using `cd api` then do `npm install`. It will install all restify and mongodb related modules.
 4. Install mongodb server on your system.
 
-
 ## Development server
 
-Terminal 1: Setup mongodb and run `mongod` command in a separate terminal.
+Run `npm start` 
 
-Terminal 2: Run `npm start` for a dev server at root floder. Applicaion will be navigated to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Terminal 3: go to api folder using `cd api` then run `npm start` to run restify server.
+The above command uses concurrently node module and executes below three commands at a single shot.
 
-## reference
+1. Runs `mongod` command and starts MongoDB server on port=27017.
+2. Runs `ng serve --proxy-config proxy.conf.json --open` For a dev server at root floder. Applicaion will be navigated to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+3. Navigates to api folder using `cd api` then run `npm start` to run restify server.
+
+## Reference
 
 https://ng-bootstrap.github.io/#/home
+
+
 https://github.com/cornflourblue/angular2-registration-login-example
